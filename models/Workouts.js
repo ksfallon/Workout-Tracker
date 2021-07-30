@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const workout = new Schema({
+const Workout = new Schema({
   date: {
     type: Date,
     default: () => new Date()
@@ -19,12 +19,27 @@ const workout = new Schema({
         trim: true,
         required: "Must enter an exercise name",
     },
+    duration: {
+      type: Number,
+      trim: true,
+      required: "Must enter duration of the exercise",
+    },
     weight: {
         type: Number,
     },
+    reps: {
+      type: Number,
+    },
+    sets: {
+      type: Number,
+    },
+    sets: {
+      distance: Number,
+    },
+    
   }],
 });
 
-const Transaction = mongoose.model("Transaction", transactionSchema);
+const Workout = mongoose.model("Workout", workoutSchema); //is workout schema right here?
 
-module.exports = Transaction;
+module.exports = Workout;
