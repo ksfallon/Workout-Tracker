@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const db = require('../models');
 
+// here we are connecting to mongo atlas here
+// and this is where the data connects and can be inserted into MongoDB
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost/workout_db', {
     useNewUrlParser: true,
@@ -127,6 +129,8 @@ const workoutSeed = [
   },
 ];
 
+//Workouts is called here bc that is the model, Workouts.js, that is exported here 
+// And this function uses the model to insert the seeds into collection called "workouts" in the workout_db (database)
 db.Workouts.deleteMany({})
   .then(() => db.Workouts.collection.insertMany(workoutSeed))
   .then((data) => {
