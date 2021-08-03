@@ -13,30 +13,49 @@ const Workouts = require('../models/Workouts')
     // TOTAL SETS PERFORMED of ALL EXERCISES
     // TOTAL REPS PERFORMED of ALL EXERCISES
     // TOTAL SETS DISTANCE of ALL EXERCISES
-router.get('/api/workouts', (req, res) => {
-    Workouts.aggregate({
-            $addFields: {
-                // totalExercises: {$add: "exercises"}, // I feel like I need array length here
-                totalDuration: {$sum: "$exercises.duration"},
-                totalWeight: {$sum: "$exercises.weight"},
-                totalReps: {$sum: "$exercises.reps"},
-                totalSets: {$sum: "$exercises.sets"},
-                totalDistance: {$sum: "$exercises.distance"},
-            }
-        }).then(dbWorkouts => {
-            res.json(dbWorkouts)
-        })
-        .catch(err => {
-            res.status(400).json(err)
-        })
-})
-
-
-//SECOND TO CONTINUE a workout we need to PUT to UPDATE THE CURRENT WORKOUT
+// router.get('/api/workouts', (req, res) => {
+//     Workouts.aggregate({
+//             $addFields: {
+//                 // totalExercises: {$add: "exercises"}, // I feel like I need array length here
+//                 totalDuration: {$sum: "$exercises.duration"},
+//                 totalWeight: {$sum: "$exercises.weight"},
+//                 totalReps: {$sum: "$exercises.reps"},
+//                 totalSets: {$sum: "$exercises.sets"},
+//                 totalDistance: {$sum: "$exercises.distance"},
+//             }
+//         }).then(dbWorkouts => {
+//             res.json(dbWorkouts)
+//         })
+//         .catch(err => {
+//             res.status(400).json(err)
+//         })
+// })
 
 //THIRD TO ADD NEW WORKOUT we need a POST to CREATE the NEW WORKOUT
-router.post('/api/workouts', ({body}, res) => {
-    Workouts.create(body)
+router.post('/api/workouts', (req, res) => {
+    Workouts.create({})
+    .then(() => {
+        res.status(200).json
+    })
+    .catch(() => {
+        res.status(400).json
+    })
+})
+
+//SECOND TO CONTINUE a workout we need to PUT to UPDATE THE CURRENT WORKOUT
+router.put('/api/workouts/:id', (req, res) => {
+    Workouts.aggregate([
+        {
+            $match: {
+                _id: req.params.id
+            }
+        },
+        {
+            $addFields: {
+                exercises: req.body
+            }
+        }
+    ])
     .then(dbWorkouts => {
         res.json(dbWorkouts)
     })
