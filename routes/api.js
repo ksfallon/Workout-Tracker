@@ -34,11 +34,11 @@ const Workouts = require('../models/Workouts')
 //THIRD TO ADD NEW WORKOUT we need a POST to CREATE the NEW WORKOUT
 router.post('/api/workouts', (req, res) => {
     Workouts.create({})
-    .then(() => {
-        res.status(200).json
+    .then((response) => {
+        res.json(response)
     })
-    .catch(() => {
-        res.status(400).json
+    .catch((err) => {
+        res.json(err)
     })
 })
 
@@ -56,8 +56,8 @@ router.put('/api/workouts/:id', (req, res) => {
             }
         }
     ])
-    .then(dbWorkouts => {
-        res.json(dbWorkouts)
+    .then(response => {
+        res.json(response)
     })
     .catch(err => {
         res.status(400).json(err)
