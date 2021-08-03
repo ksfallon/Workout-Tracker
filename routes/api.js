@@ -20,10 +20,10 @@ router.post('/api/workouts', (req, res) => {
 router.put('/api/workouts/:id', (req, res) => {
     Workouts.aggregate([
         {
-            $match: { _id: req.params.id}
+            $match: { "_id": req.params.id}
         },
         {
-            $addFields: {exercises: req.body}
+            $addFields: {"exercises": req.body}
         }
     ])
     .then(response => {
