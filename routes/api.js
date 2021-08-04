@@ -16,7 +16,7 @@ router.get('/api/workouts', (req, res) => {
             res.status(400).json(err)
         })
 })
-//First TO ADD NEW WORKOUT we need a POST to CREATE the NEW WORKOUT
+//TO ADD NEW WORKOUT we need a POST to CREATE the NEW WORKOUT
 router.post('/api/workouts', (req, res) => {
     Workouts.create({})
     .then((response) => {
@@ -27,7 +27,7 @@ router.post('/api/workouts', (req, res) => {
     })
 })
 
-//SECOND TO CONTINUE a workout we need to PUT to UPDATE THE CURRENT WORKOUT
+//TO CONTINUE a workout we need to PUT to UPDATE THE CURRENT WORKOUT
 router.put('/api/workouts/:id', (req, res) => {
     Workouts.findByIdAndUpdate(
         {"_id": req.params.id},
@@ -42,6 +42,22 @@ router.put('/api/workouts/:id', (req, res) => {
     })
 })
 
+// to GET the RANGE of WORKOUTS for LAST SEVEN DAYS
+router.get('/api/workouts/range', (req, res) => {
+    Workouts.aggregate([{
+            $addFields: {
+                totalDuration: {$sum: "$exercises.duration"},
+            },
+            $addFields: {
+                totalWeight: {$sum: "$exercises.weight"},
+            }
+        }]).then(dbWorkouts => {
+            res.json(dbWorkouts)
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+});
 
 module.exports = router
 
