@@ -46,11 +46,14 @@ router.put('/api/workouts/:id', (req, res) => {
 // to GET the RANGE of WORKOUTS for LAST SEVEN DAYS
 // Am i doing the Duration here AND the total weight??
 router.get('/api/workouts/range', (req, res) => {
-    Workouts.aggregate([{
-            $addFields: {
-                totalWeight: {$sum: "$exercises.weight"},
-            }
-        }]).then(resWorkouts => {
+    Workouts.aggregate([
+        // we need to get the get the totalDuration
+            {$addFields: {totalDuration: {$sum: "$exercises.duration"}}}, 
+            {$sort: {"day": -1}}, // should sort in descending order because we want to start with more recent day. **I've tried as date and day
+            {$limit: (-7)} // want to start with our most recent day and work backwards, so the most recent 7 days, the last 7 documents
+            // Do we need the totalWeight as well??
+            // $addFields: {totalWeight: {$sum: "$exercises.weight"}}
+        ]).then(resWorkouts => {
             res.json(resWorkouts)
         })
         .catch(err => {
