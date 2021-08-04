@@ -4,23 +4,24 @@ const router = require('express').Router()
 const Workouts = require('../models/Workouts')
 
 // I need to create a routes to do GET POST PUT 
+// use AGGREGATE -
+    // Use addFields or set (def for both): appends new fields to existing documents, can include one or more set/addField stages in an aggregation
 router.get('/api/workouts', (req, res) => {
     Workouts.aggregate([{
-            $addFields: {
-                totalDuration: {$sum: "$exercises.duration"},
-            }
-        }]).then(dbWorkouts => {
-            res.json(dbWorkouts)
+            $addFields: {totalDuration: {$sum: "$exercises.duration"}}
+        }]).then(resWorkouts => {
+            res.json(resWorkouts)
         })
         .catch(err => {
             res.status(400).json(err)
         })
 })
 //TO ADD NEW WORKOUT we need a POST to CREATE the NEW WORKOUT
+// Don't need to pass anything through the workout create. it knows to just send it to the model
 router.post('/api/workouts', (req, res) => {
     Workouts.create({})
-    .then((response) => {
-        res.json(response)
+    .then((resWorkouts) => {
+        res.json(resWorkouts)
     })
     .catch((err) => {
         res.json(err)
@@ -34,8 +35,8 @@ router.put('/api/workouts/:id', (req, res) => {
 
         {$push: {"exercises": req.body}}
     )
-    .then(response => {
-        res.json(response)
+    .then(resWorkouts => {
+        res.json(resWorkouts)
     })
     .catch(err => {
         res.status(400).json(err)
@@ -43,13 +44,14 @@ router.put('/api/workouts/:id', (req, res) => {
 })
 
 // to GET the RANGE of WORKOUTS for LAST SEVEN DAYS
+// Am i doing the Duration here AND the total weight??
 router.get('/api/workouts/range', (req, res) => {
     Workouts.aggregate([{
             $addFields: {
                 totalWeight: {$sum: "$exercises.weight"},
             }
-        }]).then(dbWorkouts => {
-            res.json(dbWorkouts)
+        }]).then(resWorkouts => {
+            res.json(resWorkouts)
         })
         .catch(err => {
             res.status(400).json(err)
