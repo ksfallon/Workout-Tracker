@@ -22,15 +22,15 @@ function populateChart(data) {
   const line = document.querySelector('#canvas').getContext('2d');
   const bar = document.querySelector('#canvas2').getContext('2d');
 
-  const labels = data.map(({ date }) => { //
-    const date2 = new Date(date);
+  const labels = data.map(({ day }) => { //
+    const date = new Date(day);
 
     // Use JavaScript's `Intl` object to help format dates
     return new Intl.DateTimeFormat('en-US', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
-    }).format(date2);
+    }).format(date);
   });
 
   let lineChart = new Chart(line, {
