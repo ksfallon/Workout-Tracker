@@ -4,7 +4,7 @@ const db = require('../models');
 // here we are connecting to mongo atlas here
 // and this is where the data connects and can be inserted into MongoDB
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/workout_db', {
+  "mongodb+srv://kfallon_86:hfs47bk3NUMbJ8R@clusterfallon.plz0q.mongodb.net/workout_db?retryWrites=true&w=majority" || 'mongodb://localhost/workout_db', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

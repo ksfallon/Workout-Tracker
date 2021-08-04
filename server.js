@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_db", {
+mongoose.connect("mongodb+srv://kfallon_86:hfs47bk3NUMbJ8R@clusterfallon.plz0q.mongodb.net/workout_db?retryWrites=true&w=majority" || "mongodb://localhost/workout_db", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
