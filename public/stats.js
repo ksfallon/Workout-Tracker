@@ -16,7 +16,7 @@ function calculateTotalWeight(data) {
 }
 
 function populateChart(data) {
-  const durations = data.map(({ totalDuration }) => totalDuration);
+  const durations = data.map(({ totalDuration }) => totalDuration); // saying not a function - prob because it can't grab totalDuration from api route
   const pounds = calculateTotalWeight(data);
 
   const line = document.querySelector('#canvas').getContext('2d');
