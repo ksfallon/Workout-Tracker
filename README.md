@@ -76,5 +76,8 @@ Just like the HTML routes, this api.js file needs to require Router(). But this 
 - aggregate method is used again. And again addFields to create total duration from the sum of all exercise durations.
 - but it also includes a sort: -1 so the exercise array is sorted in descending order - the end of the array first.
 - Because I want to display the last seven days limit is also used, and the limit is set to 7.
- 
+
+Here is a screen shot of the homepage displaying the current day's workouts data:
+
+Here is a screen shot of the range page with the charts:
 
