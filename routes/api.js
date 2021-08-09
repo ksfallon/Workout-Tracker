@@ -31,7 +31,7 @@ router.post('/api/workouts', (req, res) => {
 //TO CONTINUE a workout we need to PUT to UPDATE THE CURRENT WORKOUT
 router.put('/api/workouts/:id', (req, res) => {
     Workouts.findByIdAndUpdate(
-        {"_id": req.params.id},
+        req.params.id,
 
         {$push: {"exercises": req.body}}
     )
