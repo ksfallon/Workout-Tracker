@@ -82,3 +82,5 @@ Here is a screen shot of the homepage displaying the current day's workouts data
 
 Here is a screen shot of the range page with the charts:
 ![graphs](https://github.com/ksfallon/Workout-Tracker/blob/main/assets/Dashboard.PNG)
+
+Licensed under the [MIT License](https://choosealicense.com/licenses/mit/#).
