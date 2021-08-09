@@ -53,4 +53,28 @@ and then Workouts is exported.
 
 I also added an index.js to the models folder. I could not get my database to seed properly unless I had the index file. If I had multiple models the Index would be necessary to do one export of all of them.
 ## 3. Creating API routes
-Adding functionality
+The API routes are need to add functionality to the website. Right now the user can access all of the html routes but no workouts can be added and no graphs are visible.
+
+Just like the HTML routes, this api.js file needs to require Router(). But this one also requires Workouts, bc it needs the model to GET PUT and POST the data from the database.
+
+1.GET '/api/workouts'. 
+- This route is to get the most recent workout, so the HTML route can display it on the homepage.
+
+- But a new property has to be created 'totalDuration' that will have the duration of all of the exercises combined. To do this the 'aggregate' method is needed. This method can use the '$addFields'(mongoose language) which will create the new field called 'totalDuration' and then '$sum' which is the combined durations of all exercises in the array.
+
+2. POST '/api/workouts'
+- This is the route to create the users new workout.
+- The create method is used to create the new workout from the user input.
+- **There is a bug with this route on the front end** when the complete button is hit, an additional exercise is added that also has the same type as the exercise added through the PUT route, but nothing else, even though all of those fields should be required. Its on the front end, so I will look into it.
+
+3. PUT '/api/workouts/:id'
+- This is needed to add new exercises to the workout with the same date.
+- The findByIdAndUpdate method is used here. based on the requested params, the $push property will literally 'push' the new exercise the user inputed into the new exercise into the current day object.
+
+4. GET '/api/workouts/range'
+- This will grab the mose recent day and disply its total duration and weight in graphs.
+- aggregate method is used again. And again addFields to create total duration from the sum of all exercise durations.
+- but it also includes a sort: -1 so the exercise array is sorted in descending order - the end of the array first.
+- Because I want to display the last seven days limit is also used, and the limit is set to 7.
+ 
+
