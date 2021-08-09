@@ -78,6 +78,7 @@ Just like the HTML routes, this api.js file needs to require Router(). But this 
 - Because I want to display the last seven days limit is also used, and the limit is set to 7.
 
 Here is a screen shot of the homepage displaying the current day's workouts data:
+https://github.com/ksfallon/Workout-Tracker/blob/main/assets/homescreen.PNG
 
 Here is a screen shot of the range page with the charts:
-
+https://github.com/ksfallon/Workout-Tracker/blob/main/assets/Dashboard.PNG
